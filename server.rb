@@ -79,6 +79,8 @@ server.mount_proc '/' do |req, res|
     rescue Postfux::FilterError => e
         $SYSLOG.info("Dropping mail: #{e.message}") 
         response = JSON.generate({'status' => e.message })
+    rescue Exception => e 
+        $SYSLOG.info("We fail! #{e.message}") 
     end
     res.body = response
 end
