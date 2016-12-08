@@ -47,45 +47,6 @@ module Postfux
     end
 end
 
-
-# This daemonize thing is stolen from
-# http://codeincomplete.com/posts/ruby-daemons/
-def write_pid(pidfile)
-    if pidfile
-        begin
-            File.open(pidfile, ::File::CREAT | ::File::EXCL | ::File::WRONLY){|f| f.write("#{Process.pid}") }
-            at_exit { File.delete(pidfile) if File.exists?(pidfile) }
-        rescue Errno::EEXIST
-            check_pid(pidfile)
-            retry
-        end
-    end
-end
-
-def check_pid(pidfile)
-    if pidfile
-        case pid_status(pidfile)
-        when :running, :not_owned
-            puts "A server is already running. Check #{pidfile}"
-            exit(1)
-        when :dead
-            File.delete(pidfile)
-        end
-    end
-end
-
-def pid_status(pidfile)
-    return :exited unless File.exists?(pidfile)
-    pid = ::File.read(pidfile).to_i
-    return :dead if pid == 0
-    Process.kill(0, pid)            # check process status
-    :running
-rescue Errno::ESRCH
-	:dead
-rescue Errno::EPERM
-	:not_owned
-end
-
 def daemonize(chdir)
     exit if fork
     Process.setsid
@@ -96,9 +57,7 @@ end
 pidfile = "#{__FILE__}.pid"
 dir = File.dirname(__FILE__)
 
-check_pid(pidfile)
 daemonize(dir)
-write_pid(pidfile)
 
 server = WEBrick::HTTPServer.new(
     :Port => 12345,
