@@ -36,7 +36,7 @@ Then edit your `/etc/postfix/master.cf`
     # .....
 
     filter    unix  -       n       n       -       10      pipe
-        flags=Rq user=postfix-filter null_sender=
+        flags=Rq user=postfux null_sender=
         argv=/somewhere/safe/postfux/filter.rb -f ${sender} -- ${recipient}
 
     # postfix reload
