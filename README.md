@@ -14,8 +14,11 @@ Get dat code
 
     cd /somewhere/safe
     git clone https://github.com/conchyliculture/postfux
-    chown -R postfux: postfux
+    mkdir postfux/pid
+    chown postfux postfux/filter.rb
+    chown postfux: postfux/pid
     chmod u+x postfux/filter.rb
+
 
 Run dat code
 

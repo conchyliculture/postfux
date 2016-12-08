@@ -1,7 +1,7 @@
 #!/bin/bash
 
 JAILNAME="postfux-jail"
-PIDFILE="postfux-jail.pid"
+PIDFILE="pid/postfux-jail.pid"
 
 check_running() {
     if [ -f $PIDFILE ] ;  then
