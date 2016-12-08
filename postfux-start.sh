@@ -1,10 +1,7 @@
 #!/bin/bash
 
-
 JAILNAME="postfux-jail"
 PIDFILE="postfux-jail.pid"
-
-RUNNING_FIREJAIL=$(firejail --list $JAILNAME)
 
 check_running() {
     if [ -f $PIDFILE ] ;  then
