@@ -12,18 +12,20 @@ Currently throwing away mails containing one zip attachement with a file which n
 
 Magic diagram explaining the magic:
 
-📧📧 -> Postfix -> [ filter.rb ] -> if (status == 'ok' ||error )  -> Postfix -> 📧  delivered
+```
+📧 -> Postfix -> [ filter.rb ] -> if (status == 'ok' ||error )  -> Postfix -> 📧  delivered
                    |        ^     |
                    |        |     + else -> /dev/null
-           POST /?mail=body |
+           POST /?mail=📧   |
                    |        |
                    |   {'status':'ok'}
                    v        |
                   [ server.rb ]
+```
 
-Basically we wanted to have a way to parse the mail body and inspect attachments, while doing that in a restricted environment.
+Basically we wanted to have a way to parse the 📧 body and inspect attachments, while doing that in a restricted environment.
 
-Here `server.rb` runs as a daemon inside a `firejail`. `filter.rb` is called by postfix, and asks the `server.rb` whether the mail is bad or not.
+Here `server.rb` runs as a daemon inside a `firejail`. `filter.rb` is called by postfix, and asks the `server.rb` whether the 📧 is bad or not.
 
 ## Install
 
