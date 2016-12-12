@@ -67,3 +67,6 @@ Then edit your `/etc/postfix/master.cf`
 
     # postfix reload
 
+## Contact authors
+
+Just send an email to my GitHub profile's mail address. Make sure you add a Zip archive containing a file named something.js inside as an attachement. 
