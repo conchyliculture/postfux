@@ -12,6 +12,7 @@ Currently throwing away mails containing one zip attachement with a file which n
 
 Magic diagram explaining the magic:
 
+```
 📧 -> Postfix -> [ filter.rb ] -> if (status == 'ok' ||error )  -> Postfix -> 📧  delivered
                    |        ^     |
                    |        |     + else -> /dev/null
@@ -20,6 +21,7 @@ Magic diagram explaining the magic:
                    |   {'status':'ok'}
                    v        |
                   [ server.rb ]
+```
 
 Basically we wanted to have a way to parse the 📧 body and inspect attachments, while doing that in a restricted environment.
 
