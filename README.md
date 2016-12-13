@@ -39,6 +39,7 @@ Get dat code
 
     cd /somewhere/safe
     git clone https://github.com/conchyliculture/postfux
+    chmod +x postfux
     mkdir postfux/pid
     chown postfux postfux/filter.rb
     chown postfux: postfux/pid
@@ -52,7 +53,7 @@ Run dat code
 Make sure dat code runs
 
     crontab -u postfux -e
-    @restart    cd /somewhere/safe/postfux ; sh postfux-start.sh
+    @reboot    cd /somewhere/safe/postfux ; sh postfux-start.sh
     0 * * * *   cd /somewhere/safe/postfux ; sh postfux-start.sh
 
 
@@ -68,6 +69,17 @@ Then edit your `/etc/postfix/master.cf`
         argv=/somewhere/safe/postfux/filter.rb -f ${sender} -- ${recipient}
 
     # postfix reload
+
+## Shutdown the jail
+
+    # firejail --list
+    24764:postfux:firejail --private --quiet --noprofile --private-dev --nosound --no3d --seccomp --caps.drop=all --name=postfux-jail -- ruby server.
+    # firejail --shutfown=24764
+    Switching to pid 24765, the first child process inside the sandbox
+    Sending SIGTERM to 24765
+
+
+
 
 ## Contact authors
 
