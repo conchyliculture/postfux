@@ -26,6 +26,8 @@ module Postfux
         Zip::File.open_buffer(string) do |z|
             z.each do |entry|
                 case entry.name
+                when /\.jse$/i
+                    raise FilterError.new("File named /\\.jse$/ in a zip")
                 when /\.wsf$/i
                     raise FilterError.new("File named /\\.wsf$/ in a zip")
                 when /\.vbs$/i
