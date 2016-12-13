@@ -7,7 +7,7 @@ check_running() {
     if [ -f $PIDFILE ] ;  then
         PID=$(cat $PIDFILE)
 
-        firejail --list | grep "${PID}.*${JAILNAME}" > /dev/null
+        firejail --list | grep "${PID}.*name=${JAILNAME}" > /dev/null
         if [ $? -eq 1 ]; then
             # Not running
             rm $PIDFILE
